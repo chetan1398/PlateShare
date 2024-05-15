@@ -1,0 +1,182 @@
+openapi: 3.0.0
+info:
+  title: PlateShare Donor API
+  version: 1.0.0
+  description: API for managing donors in PlateShare project
+servers:
+  - url: 'https://plateshare.com/api'
+paths:
+  /donors:
+    post:
+      summary: Create a new donor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DonorInput'
+              example:
+                firstname: "Joe"
+                lastname: "Johnson"
+                phone: "857-381-9090"
+                email: "joejohnson@gmail.com"
+                location: "Boston"
+
+      responses:
+        '201':
+          description: The created donor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Donor'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+
+    get:
+      summary: Retrieve all donors
+      responses:
+        '200':
+          description: A list of donors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Donor'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+
+  /donors/{donorId}:
+    get:
+      summary: Retrieve a specific donor by ID
+      parameters:
+        - in: path
+          name: donorId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the donor to retrieve
+      responses:
+        '200':
+          description: The requested donor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Donor'
+        '404':
+          description: Donor not found
+
+    put:
+      summary: Update a donor's information
+      parameters:
+        - in: path
+          name: donorId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the donor to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DonorInput'
+              example:
+                firstname: "Tony"
+                lastname: "Stark"
+                phone : "768-909-9090"
+                email : "tonystark@example.com"
+                location : "New York"
+      responses:
+        '200':
+          description: The updated donor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Donor'
+        '404':
+          description: Donor not found
+
+    delete:
+      summary: Delete a donor
+      parameters:
+        - in: path
+          name: donorId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the donor to delete
+      responses:
+        '204':
+          description: Donor deleted
+        '404':
+          description: Donor not found
+
+components:
+  schemas:
+    Donor:
+      type: object
+      properties:
+        donorId:
+          type: string
+          format: uuid
+          description: The unique identifier for the donor
+        firstname:
+          type: string
+          description: The first name of the donor
+        lastname:
+          type: string
+          description: The last name of the donor
+        phone:
+          type: string
+          description: The phone number of the donor
+        email:
+          type: string
+          format: email
+          description: The email address of the donor
+        location:
+          type: string
+          description: The location of the donor
+    DonorInput:
+      type: object
+      properties:
+        firstname:
+          type: string
+          description: The first name of the donor
+        lastname:
+          type: string
+          description: The last name of the donor
+        phone:
+          type: string
+          description: The phone number of the donor
+        email:
+          type: string
+          format: email
+          description: The email address of the donor
+        location:
+          type: string
+          description: The location of the donor
+      required:
+        - name
+        - email
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+          description: Error message detailing what went wrong.

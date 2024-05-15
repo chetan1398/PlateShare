@@ -1,0 +1,33 @@
+meta {
+  name: update an exisitng volunteer
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/volunteers
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "volunteerId": 1,
+    "firstName": "A",
+    "lastName": "Pawar",
+    "phone": 8578699744,
+    "email": "pawar.ak@northeastern.edu",
+    "skills": [
+      {
+        "id": 1,
+        "name": "Java"
+      },
+      {
+        "id": 2,
+        "name": "React"
+      }
+    ],
+    "availability": "Mon-Fri 9 A.M.- 5 P.M."
+    
+  }
+}

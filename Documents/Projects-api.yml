@@ -1,0 +1,254 @@
+openapi: 3.0.0
+info:
+  title: Project API
+  description: API for managing projects within the PlateShare platform.
+  version: 1.0.0
+servers:
+  - url: 'https://plateshare.com/api'
+    description: Main API server
+paths:
+  /projects:
+    post:
+      summary: Create a new project
+      description: Add a new project with the information provided in the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+            example:
+              organizationId: "org-12345"
+              title: "Community Garden"
+              description: "A project to create a community garden."
+              location: "123 Main St, Anytown, Anystate"
+              status: true
+              employeeId: "emp-67890"
+              DonationTarget: "5000.00"
+              donationReceived:
+                amount: "1000.00"
+                currency: "USD"
+              volunteerId: "vol-11223"
+              volunteeringOpportunityId: "opp-32456"
+      responses:
+        '201':
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Bad request, details in error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        
+
+  /projects/{projectId}:
+    get:
+      summary: Retrieve a project by ID
+      description: Get details of a specific project by its unique ID.
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier of the project to retrieve.
+      responses:
+        '200':
+          description: A detailed view of a project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          description: Project not found with the given ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+       
+   
+    
+    put:
+      summary: Update a project's information
+      description: Update the title, description, location, donation target, and status for a project by its unique ID.
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier of the project to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: The new title of the project.
+                description:
+                  type: string
+                  description: The new description of the project.
+                location:
+                  type: string
+                  description: The new location of the project.
+                DonationTarget:
+                  type: string
+                  description: The new donation target amount for the project.
+                status:
+                  type: boolean
+                  description: The new status of the project.
+              required:
+                - title
+                - description
+                - location
+                - DonationTarget
+                - status
+            example:
+              title: "Updated Community Garden"
+              description: "Updated project to expand the community garden."
+              location: "456 Main St, Anytown, Anystate"
+              DonationTarget: "7500.00"
+              status: false
+      responses:
+        '200':
+          description: Project updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Bad request, validation errors, or missing data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Project not found with the given ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+                
+    delete:
+      summary: Delete a specific project
+      description: Remove the project with the specified ID from the system.
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier of the project to delete.
+      responses:
+        '204':
+          description: Project deleted successfully, no content to return.
+        '400':
+          description: Bad request, validation errors or the ID format is not correct.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Project not found with the given ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'            
+                
+       
+components:
+  schemas:
+    Project:
+      type: object
+      required:
+        - organizationId
+        - title
+        - description
+        - location
+        - status
+        - employeeId
+        - DonationTarget
+        - donationReceived
+        - volunteerId
+        - volunteeringOpportunityId
+      properties:
+        projectId:
+          type: string
+          format: uuid
+          description: Unique identifier of the project.
+        organizationId:
+          type: string
+          format: uuid
+          description: The unique identifier of the organization to which the project belongs.
+        title:
+          type: string
+          description: Title of the project.
+        description:
+          type: string
+          description: Detailed description of the project.
+        location:
+          type: string
+          description: The location where the project takes place.
+        status:
+          type: boolean
+          description: The status of the project, e.g., active, completed.
+        employeeId:
+          type: string
+          format: uuid
+          description: The ID of the employee responsible for the project.
+        DonationTarget:
+          type: string
+          description: The target amount of donations needed for the project.
+        donationReceived:
+          $ref: '#/components/schemas/DonationAmount'
+        volunteerId:
+          type: string
+          format: uuid
+          description: The ID of the volunteer associated with the project.
+        volunteeringOpportunityId:
+          type: string
+          format: uuid
+          description: The ID of the volunteering opportunity associated with the project.
+
+    DonationAmount:
+      type: object
+      required:
+        - amount
+        - currency
+      properties:
+        amount:
+          type: string
+          format: float
+          description: The amount of money donated.
+        currency:
+          type: string
+          description: The currency of the donated amount.
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+          description: A human-readable explanation of the error.
+
+

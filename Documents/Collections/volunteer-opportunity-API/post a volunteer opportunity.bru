@@ -1,0 +1,35 @@
+meta {
+  name: post a volunteer opportunity
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:3000/VolunteerOpportunities
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "volunteerOpportunityId": 1,
+    "description": "Food camp test",
+    "startDate": "2024-04-16T00:00:00Z",
+    "endDate": "2024-04-25T00:00:00Z",
+    "capacity": 50,
+    "location": "Boston, MA",
+    "status": true,
+    "projectId": 123,
+    "requiredSkills": [
+      {
+        "id": 1,
+        "name": "Java"
+      },
+      {
+        "id": 2,
+        "name": "React"
+      }
+    ]
+  }
+  
+}

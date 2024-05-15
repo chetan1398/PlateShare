@@ -1,0 +1,22 @@
+{
+  "name": "final-project-plateshare",
+  "version": "1.0.0",
+  "description": "Our project, \"**PlateShare**,\" is a culmination of our Web Design Final Project, aimed at addressing the critical issue of food scarcity through the lens of community collaboration. In the contemporary landscape, food scarcity stands as a formidable global challenge. \"PlateShare\" serves as a pioneering web platform designed to foster Nourishing Networks: Building Bridges for Food Security.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:debug": "node --inspect-brk your_script.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "debug": "^4.3.4",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.1",
+    "react-redux": "^9.1.1",
+    "redux": "^5.0.1"
+  }
+}

@@ -1,0 +1,168 @@
+openapi: 3.0.0
+info:
+  title: PlateShare Volunteer API
+  description: API for volunteer entity
+  version: 1.0.0
+servers:
+  - url: 'https://www.plateshare.com'
+paths:
+  /volunteers:
+
+    post:
+      summary: Register a new volunteer
+      description: Create a new colunteer with the json body provided
+      requestBody: 
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Volunteer'
+            example:
+              firstname: "John"
+              lastname: "Doe"
+              phone: "1234564789"
+              email: "johndoe@gmail.com" 
+              skills: ["Leadership", "Web Development","Marketing"]
+              availability: "Mon-Thurs 9:00AM-5:00PM"  
+      responses:
+        '201':
+          description: Volunteer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volunteer'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error' 
+        '500':
+          description: Internal server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error' 
+    
+  /volunteers/{volunteerId}:
+    get: 
+      summary: Retreive details of a specific volunteer by volunteerId
+      description: Retreive details of a specific volunteer by volunteerId
+      parameters:
+        - in: path
+          name: volunteerId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The unique identifier of the volunteerId to retrieve details for.
+      responses:
+        '200': 
+          description: Details of an volunteer
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Volunteer'
+        '500':
+          description: Internal server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: volunteer not found with the volunteerId
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'              
+    put:
+      summary: Update a Volunteer's details
+      description: Update a Volunteer's details by volunteerId
+      parameters:
+        - in: path
+          name: volunteerId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The volunteer's id to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Volunteer'
+      responses:
+        '200':
+          description: The updated volunteer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volunteer'
+        '404':
+          description: Volunteer with the specified id not found  
+    delete:
+      summary: Delete a volunteer
+      parameters:
+        - in: path
+          name: volunteerId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The volunteer's id to delete
+      responses:
+        '204':
+          description: Volunteer deleted
+        '404':
+          description: Volunteer with the specified id not found
+
+components:
+  schemas:
+    Volunteer:
+      type: object
+      required:
+        - firstname
+        - lastname
+        - phone
+        - email
+        - skills
+        - availability
+      properties:
+        volunteerId: 
+          type: string
+          format: uuid
+          description: The unique identifier for the Volunteer
+        firstname:
+          type: string
+          description: First name of the volunteer  
+        lastname:
+          type: string
+          description: Last name of the volunteer 
+        phone:
+          type: string
+          description: phone number of the volunteer
+        email:
+          type: string
+          format: email
+          description: Email address of the volunteer
+        skills:
+          type: array
+          description: Skills of the volunteer
+        availability: 
+          type: string
+          description: Availability of the volunteer    
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+          description: Error message detailing what went wrong.
+
+        
+         

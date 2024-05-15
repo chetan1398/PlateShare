@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "volunteer-opportunity-API",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

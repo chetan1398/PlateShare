@@ -1,0 +1,33 @@
+meta {
+  name: post a volunteer
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/volunteers
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "volunteerId": 2,
+    "firstName": "Akanksha",
+    "lastName": "Pawar",
+    "phone": 8578699744,
+    "email": "pawar.ak@northeastern.edu",
+    "skills": [
+      {
+        "id": 1,
+        "name": "Java"
+      },
+      {
+        "id": 2,
+        "name": "React"
+      }
+    ],
+    "availability": "Mon-Fri 9 A.M.- 5 P.M."
+    
+  }
+}

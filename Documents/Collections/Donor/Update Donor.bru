@@ -1,0 +1,23 @@
+meta {
+  name: Update Donor
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3000/donors/Vimeo
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "donorId":"1109",
+    "firstname":"Vimeo",
+    "lastname":"Deshpande",
+    "phone": 5665565757,
+    "email":"vimeo@google.com",
+    "location":"Usa"
+  }
+  
+}

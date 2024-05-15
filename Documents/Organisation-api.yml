@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: PlateShare Organisation API
+  description: API for managing organizations involved in various organisations posting projects on plateshare.
+  version: 1.0.0
+servers:
+  - url: 'https://plateshare.com/api'
+paths:
+  /organizations:
+    post:
+      summary: Register a new organization
+      description: Creates a new organization with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationRequest'
+            example:
+              name: "Tech for Good"
+              address: "1234 Innovation Way, Tech City, TC 12345"
+              contactInfo: "info@techforgood.com"
+      responses:
+        '201':
+          description: Organization created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationResponse'
+        '400':
+          description: Bad request, such as missing required fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /organizations/{organizationId}:
+    get:
+      summary: Retrieve details of a specific organization
+      description: Returns detailed information about an organization.
+      parameters:
+        - in: path
+          name: organizationId
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the organization
+      responses:
+        '200':
+          description: Organization details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationResponse'
+        '404':
+          description: Organization not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update details of a specific organization
+      description: Updates the information of an existing organization.
+      parameters:
+        - in: path
+          name: organizationId
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the organization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationRequest'
+            example:
+              name: "Tech for Good Updated"
+              address: "1234 Innovation Way, Tech City, TC 12345"
+              contactInfo: "contact@techforgood.com"
+      responses:
+        '200':
+          description: Organization updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationResponse'
+        '400':
+          description: Bad request, such as missing required fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Organization not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a specific organization
+      description: Removes an organization from the system.
+      parameters:
+        - in: path
+          name: organizationId
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the organization
+      responses:
+        '204':
+          description: Organization deleted successfully.
+        '404':
+          description: Organization not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    OrganizationRequest:
+      type: object
+      required:
+        - name
+        - address
+        - contactInfo
+      properties:
+        name:
+          type: string
+          description: Name of the organization
+        address:
+          type: string
+          description: Postal address of the organization
+        contactInfo:
+          type: string
+          description: Contact information for the organization
+    OrganizationResponse:
+      type: object
+      properties:
+        organizationId:
+          type: string
+          description: The unique identifier for the organization
+        name:
+          type: string
+          description: Name of the organization
+        address:
+          type: string
+          description: Postal address of the organization
+        contactInfo:
+          type: string
+          description: Contact information for the organization
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+          description: A detailed error message explaining what went wrong.
