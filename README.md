@@ -1,93 +1,89 @@
+# PlateShare
 
-Our project, "**PlateShare**," is a culmination of our Web Design Final Project, aimed at addressing the critical issue of food scarcity through the lens of community collaboration. In the contemporary landscape, food scarcity stands as a formidable global challenge. "PlateShare" serves as a pioneering web platform designed to foster Nourishing Networks: Building Bridges for Food Security.
+## Overview
+PlateShare is an innovative web platform designed as a Web Design Final Project to tackle the global challenge of food scarcity by fostering community collaboration. It connects organizations focused on food security with volunteers willing to contribute time, skills, or resources.
 
-Our innovative solution facilitates the connection between organizations committed to alleviating food insecurity and individuals eager to contribute to this cause. Through "PlateShare," organizations planning food donation drives, distributions, and social services can seamlessly connect with volunteers from the community who are willing to register and lend their support.
+## Objective
+The goal of PlateShare is to create a nourishing network that bridges the gap between food abundance and scarcity, making every small contribution towards food security count.
 
-"**PlateShare**" offers a range of flexible volunteering opportunities, enabling individuals to donate their time, skills, and resources. Whether it's sparing a couple of hours from a busy work schedule to assist an NGO in setting up a basic website, leveraging management skills to organize donation camps, or contributing financial donations, our platform provides avenues for diverse forms of support. Together, we aim to forge a collaborative ecosystem where every contribution, no matter how small, makes a significant impact in the fight against food scarcity.
+## Technologies Used
+- React
+- Node.js
+- MongoDB
+- APIs
+- Bruno/Postman
+- Google Cloud
 
-**Team Member:-
-A. Akanksha Pandey - pandey.akan@northeastern.edu
-B. Akanksha Pawar - pawar.ak@northeastern.edu
-C. Chetan Warad - warad.c@northeastern.edu
-D. Yash Deshpande - deshpande.ya@northeastern.edu** 
--------------------------------------------------------------------------------------
-# Object Model
+## Features
 
-```mermaid
+### Community Engagement
+Enables organizations to coordinate food drives, distribution events, and other social services by connecting them with community volunteers.
 
----
-Object Model for PlatShare
----
-classDiagram
+### Flexible Volunteering
+Offers a variety of volunteering options, allowing individuals to contribute in ways that suit their skills and availability.
 
-    class Organization {
-        +UUID organizationId
-        +String name
-        +Address address 
-        +String phone
-    }
-    class Project {
-      +UUID projectId 
-      +UUID organizationId
-      +String title
-      +String description 
-      +String location 
-      +boolean status
-      +String DonationTarget
-      +DonationAmount donationReceived
-      +UUID volunteerId
-      +UUID volunteeringOpportunityId
+### Real-time Updates
+Utilizes React and Node.js to provide a dynamic and responsive user interface for real-time updates on projects and volunteer opportunities.
 
-    }
-   
-    class Donor {
-      +UUID donorId
-      +String name 
-      +String phone
-      +String location
-    }
-    class Donation {
-      +UUID donationId 
-      +UUID projectId 
-      +UUID donorId
-      +String type
-      +String qty
-      +DonationAmount donationAmountId
-    }
-    
-    class Address {
-      +UUID addressId 
-      +String street 
-      +String City
-      +String state
-      +String zipCode
-    }
-    class Skill {
-      +UUID skillId
-      +String skillName 
-      +String description
-    }
-    class DonationAmount {
-      +UUID donationAmountId
-      +float amount
-      +String Currency
-    }
-  
-    Organization "1" -- "*" Project : has
-    Organization "1" -- "1" Address : has
-    Organization : uses > Address
+### Database Management
+Employs MongoDB for robust data storage and retrieval, ensuring efficient management of user and project information.
 
-    
+### API Integration
+Facilitates seamless integration with external services using custom APIs tested with Bruno/Postman.
 
-    Project "1" -- "*" VolunteeringOpportunity : offers
-    Project "*" -- "*" Donation : receives
+### Cloud Deployment
+Hosted on Google Cloud to ensure scalable, secure, and accessible platform operations.
 
-    
-    
-    Donor "1" -- "*" Donation : makes
-    
-    Donation : uses > DonationAmount
-    Donation "1" -- "0..*" DonationAmount : has
----------------------------------------------------------------------
+## Screenshots
 
-Note - In the repository the woking cde is in the Client Folder
+### PlateShare Login Page : 
+*The PlateShare login page serves as the secure entry point to the platform, offering users streamlined access to their accounts. Designed with simplicity and user experience in mind, the page features a clean, intuitive interface that allows both returning and new users to log in or register effortlessly*
+![p1](https://github.com/chetan1398/PlateShare/assets/97820720/8a952289-15e8-48a7-81c4-3e8fd499e01d)
+
+
+### PlateShare Signup Page : 
+
+*Robust user authentication system ensuring secure access to user profiles and associated data.*
+
+*Social Media Login: Convenient login options through social media for a faster and smoother user experience.*
+
+*Forgot Password: A user-friendly password recovery feature that sends password reset instructions via email.*
+
+*Responsive Design: Optimally designed for a seamless experience across various devices including desktops, tablets, and smartphone.*
+
+![Plateshare_signup](https://github.com/chetan1398/PlateShare/assets/97820720/22f27a05-6a4e-4376-9af7-eec230b8acc3)
+
+
+
+
+### Home Page : 
+*The PlateShare Dashboard acts as the central hub for users, providing a comprehensive overview of their activities and opportunities on the platform. This page is designed to be highly intuitive, allowing users to quickly navigate through various functionalities such as viewing upcoming volunteering opportunities, tracking donation histories, and managing personal profiles*
+
+![p3](https://github.com/chetan1398/PlateShare/assets/97820720/9ba42f99-a91a-48cc-936d-1134f0c6c704)
+
+
+
+
+### Donation Form : 
+*The Food Donation Form page on the PlateShare platform is meticulously designed to facilitate the process of donating food, making it straightforward and efficient for donors. This page allows users to input details about their food donations, including type, quantity, and preferred drop-off times, ensuring that the donations are managed and distributed effectively.*
+
+![p4](https://github.com/chetan1398/PlateShare/assets/97820720/93984d44-0ac8-481e-ae2d-4cd5a8b8a6ac)
+
+
+
+### Food Cards : 
+*The FoodCards page on the PlateShare platform is a visually engaging and informative interface where donated food items are displayed in a tile format. This page allows users, volunteers, and partner organizations to quickly view the variety and quantity of food available for distribution. Each tile, representing a specific food donation, includes detailed information such as the type of food, quantity, donor details, and status of the donation.*
+
+![p5](https://github.com/chetan1398/PlateShare/assets/97820720/52199209-cf7d-4c04-b186-96bf85ba6d40)
+
+
+
+### Distributed Food : 
+*Example of the food distribution scenario on the PlateShare platform.*
+
+![p6](https://github.com/chetan1398/PlateShare/assets/97820720/767e8088-7ce7-45b3-9f79-3f57490ef215)
+
+
+
+
+
