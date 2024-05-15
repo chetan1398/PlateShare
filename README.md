@@ -34,7 +34,7 @@ Facilitates seamless integration with external services using custom APIs tested
 ### Cloud Deployment
 Hosted on Google Cloud to ensure scalable, secure, and accessible platform operations.
 
-## Screenshots
+## Below are some snippets from the application
 
 ### PlateShare Login Page : 
 *The PlateShare login page serves as the secure entry point to the platform, offering users streamlined access to their accounts. Designed with simplicity and user experience in mind, the page features a clean, intuitive interface that allows both returning and new users to log in or register effortlessly*
