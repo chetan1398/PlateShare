@@ -38,6 +38,7 @@ Hosted on Google Cloud to ensure scalable, secure, and accessible platform opera
 
 ### PlateShare Login Page : 
 *The PlateShare login page serves as the secure entry point to the platform, offering users streamlined access to their accounts. Designed with simplicity and user experience in mind, the page features a clean, intuitive interface that allows both returning and new users to log in or register effortlessly*
+
 ![p1](https://github.com/chetan1398/PlateShare/assets/97820720/8a952289-15e8-48a7-81c4-3e8fd499e01d)
 
 
